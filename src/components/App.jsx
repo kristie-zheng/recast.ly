@@ -1,9 +1,10 @@
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       currentVideo: window.exampleVideoData[0],
-      allVideos: window.exampleVideoData
+      allVideos: window.exampleVideoData,
+      searchInput: ''
     };
   }    
 
@@ -14,12 +15,27 @@ class App extends React.Component {
     });
   }
 
+  searchHandler(event) {
+    this.setState({
+      searchInput: event.target.value
+    });
+    console.log(this.state.searchInput);
+    console.log('key', window.YOUTUBE_API_KEY);
+    this.props.searchYouTube({query: this.state.searchInput, max: 10, key: this.props.key}, function(data) {
+      // this.setState({
+      //   allVideos: data,
+      //   currentVideo: data[0]
+      // });
+    }); 
+  }
+
+
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <div><Search searchHandler = {this.searchHandler.bind(this)} /></div>
           </div>
         </nav>
         <div className="row">
