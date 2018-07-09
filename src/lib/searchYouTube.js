@@ -9,7 +9,6 @@ var searchYouTube = (options, callback) => {
     videoEmbeddable: 'true'
   };
   console.log(JSON.stringify(defaults));
-  _.extend(defaults, options);
   $.get('https://www.googleapis.com/youtube/v3/search', defaults, 
     function(data) {
       console.log(data);

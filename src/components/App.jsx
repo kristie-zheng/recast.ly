@@ -16,16 +16,17 @@ class App extends React.Component {
   }
 
   searchHandler(event) {
+    var context = this;
     this.setState({
       searchInput: event.target.value
     });
     console.log(this.state.searchInput);
     console.log('key', window.YOUTUBE_API_KEY);
     this.props.searchYouTube({query: this.state.searchInput, max: 10, key: this.props.key}, function(data) {
-      // this.setState({
-      //   allVideos: data,
-      //   currentVideo: data[0]
-      // });
+      context.setState({
+        allVideos: data,
+        currentVideo: data[0]
+      });
     }); 
   }
 
