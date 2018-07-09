@@ -5,7 +5,7 @@ var searchYouTube = (options, callback) => {
     q: options.query,
     type: 'video',
     maxResults: options.max || 5,
-    key: window.YOUTUBE_API_KEY,
+    key: options.key || window.YOUTUBE_API_KEY,
     videoEmbeddable: 'true'
   };
   console.log(JSON.stringify(defaults));

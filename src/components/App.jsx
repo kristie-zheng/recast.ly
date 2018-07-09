@@ -2,8 +2,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentVideo: window.exampleVideoData[0],
-      allVideos: window.exampleVideoData,
+      currentVideo: exampleVideoData[0],
+      allVideos: [],
       searchInput: ''
     };
   }    
@@ -16,20 +16,26 @@ class App extends React.Component {
   }
 
   searchHandler(event) {
-    var context = this;
     this.setState({
-      searchInput: event.target.value
+      searchInput: event.target.value || 'react'
     });
     console.log(this.state.searchInput);
     console.log('key', window.YOUTUBE_API_KEY);
-    this.props.searchYouTube({query: this.state.searchInput, max: 10, key: this.props.key}, function(data) {
+  } 
+  
+  apiHandler () {
+    var context = this;
+    this.props.searchYouTube({query: this.state.searchInput, key: this.props.key}, function(data) {
       context.setState({
         allVideos: data,
         currentVideo: data[0]
       });
-    }); 
+    });
   }
 
+  componentDidMount() {
+    this.apiHandler({value: ''});
+  }
 
   render() {
     return (
@@ -45,7 +51,7 @@ class App extends React.Component {
           </div>
           <div className="col-md-5">
             <div>
-              <VideoList videos = {window.exampleVideoData} clickHandler = {this.clickHandler.bind(this)}/>
+              <VideoList videos = {this.state.allVideos} clickHandler = {this.clickHandler.bind(this)}/>
             </div>
           </div>
         </div>
