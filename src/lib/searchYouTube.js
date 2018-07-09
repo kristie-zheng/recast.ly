@@ -8,10 +8,8 @@ var searchYouTube = (options, callback) => {
     key: options.key || window.YOUTUBE_API_KEY,
     videoEmbeddable: 'true'
   };
-  console.log(JSON.stringify(defaults));
   $.get('https://www.googleapis.com/youtube/v3/search', defaults, 
     function(data) {
-      console.log(data);
       callback(data.items);
     })
     .fail(function() {

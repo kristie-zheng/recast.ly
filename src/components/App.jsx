@@ -9,20 +9,11 @@ class App extends React.Component {
   }    
 
   clickHandler(video) {
-    console.log(video);
     this.setState({
-      currentVideo: video//set it to whatever was clicked
+      currentVideo: video
     });
   }
 
-  searchHandler(event) {
-    this.setState({
-      searchInput: event.target.value || 'react'
-    });
-    console.log(this.state.searchInput);
-    console.log('key', window.YOUTUBE_API_KEY);
-  } 
-  
   apiHandler () {
     var context = this;
     this.props.searchYouTube({query: this.state.searchInput, key: this.props.key}, function(data) {
@@ -32,6 +23,14 @@ class App extends React.Component {
       });
     });
   }
+
+  searchHandler(event) {
+    this.setState({
+      searchInput: event.target.value || 'react'
+    });
+    this.apiHandler();
+  } 
+  
 
   componentDidMount() {
     this.apiHandler({value: ''});
